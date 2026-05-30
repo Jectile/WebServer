@@ -1,4 +1,4 @@
-package org.richt.config;
+package org.richt.httpserver.config;
 
 public class HttpConfigurationException extends RuntimeException {
     public HttpConfigurationException() {

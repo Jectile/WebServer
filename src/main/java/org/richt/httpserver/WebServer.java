@@ -1,7 +1,7 @@
-package org.richt;
+package org.richt.httpserver;
 
-import org.richt.config.ConfigurationManager;
-import org.richt.core.ServerListenerThread;
+import org.richt.httpserver.core.ServerListenerThread;
+import org.richt.httpserver.config.ConfigurationManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;

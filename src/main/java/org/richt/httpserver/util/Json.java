@@ -1,4 +1,4 @@
-package org.richt.util;
+package org.richt.httpserver.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;

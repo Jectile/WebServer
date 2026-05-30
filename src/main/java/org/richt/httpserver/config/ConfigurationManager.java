@@ -1,8 +1,8 @@
-package org.richt.config;
+package org.richt.httpserver.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.richt.util.Json;
+import org.richt.httpserver.util.Json;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -36,18 +36,31 @@ public class ConfigurationManager {
                 buffer.append((char) i);
             }
         } catch (IOException fnf) {
+            if (fileReader != null) {
+                try {
+                    fileReader.close();
+                } catch (IOException e) {
+                    throw new HttpConfigurationException("Error closing Config file", e);
+                }
+            }
             throw new HttpConfigurationException(fnf);
         }
+
         JsonNode conf = null;
+        
         try {
             conf = Json.parse(buffer.toString());
-        } catch (JsonProcessingException e) {
-            throw new HttpConfigurationException("Error parsing Config file", e);
-        }
-        try {
             currentConfig = Json.fromJson(conf, Configuration.class);
         } catch (JsonProcessingException e) {
-            throw new HttpConfigurationException("Error parsing Config file internal", e);
+            throw new HttpConfigurationException("Error parsing Config file", e);
+        } finally {
+            if (fileReader != null) {
+                try {
+                    fileReader.close();
+                } catch (IOException e) {
+                    throw new HttpConfigurationException("Error closing Config file", e);
+                }
+            }
         }
     }
 
